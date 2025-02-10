@@ -12,6 +12,7 @@ import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartToo
 import { Input } from './input';
 import { ScrollArea } from './scroll-area';
 import Sidebar from './Sidebar';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from './table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
@@ -31,7 +32,7 @@ export default function Dashboard() {
   const [selectedWorkspace, setSelectedWorkspace] = useState('1');
   const [_tab, setTab] = useState('chart');
 
-  const data = {
+  const _data = {
     type: 'bar',
     labels: ['Q1', 'Q2', 'Q3', 'Q4'],
     values: [150000, 165000, 180000, 195000],
@@ -223,8 +224,20 @@ export default function Dashboard() {
                 </div>
                 <div className="px-4 pt-4">
                   <Card className="bg-white p-4">
+                    <Card className="mb-4 text-sm">
+                      <div className="p-4">
+                        <div className="flex items-center gap-1 font-medium leading-none">
+                          Trending up by 18% from Q3 to Q4
+                          {' '}
+                          <MdTrendingUp className="text-lg text-green-600" />
+                        </div>
+                        <div className="leading-none text-muted-foreground">
+                          Showing total revenue from Q1-Q4 2024
+                        </div>
+                      </div>
+                    </Card>
                     <Tabs defaultValue="chart" className="size-full">
-                      <div className="mb-4 flex items-center justify-between">
+                      <div className="mb-2 flex items-center justify-between">
                         <TabsList>
                           <TabsTrigger value="chart" onClick={() => setTab('chart')}>
                             <div className="flex items-center gap-2">
@@ -307,63 +320,138 @@ export default function Dashboard() {
                             </ChartContainer>
                           </CardContent>
                         </Card>
-                        <div className="mb-4 flex-col items-start gap-2 text-sm">
-                          <div className="flex items-center gap-1 font-medium leading-none">
-                            Trending up by 18% from Q3 to Q4
-                            {' '}
-                            <MdTrendingUp className="text-lg text-green-600" />
+                      </TabsContent>
+                      <TabsContent value="data" className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+                        <Card className="col-span-full grid grid-cols-1 gap-4 xl:grid-cols-2">
+                          <div className="p-4">
+                            <Table>
+                              <TableCaption>Total Revenue</TableCaption>
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Quarter</TableHead>
+                                  <TableHead>Revenue</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                <TableRow>
+                                  <TableCell>Q1</TableCell>
+                                  <TableCell>$150,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Q2</TableCell>
+                                  <TableCell>$165,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Q3</TableCell>
+                                  <TableCell>$180,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Q4</TableCell>
+                                  <TableCell>$195,000</TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
                           </div>
-                          <div className="leading-none text-muted-foreground">
-                            Showing total revenue from Q1-Q4 2024
+
+                          <div className="p-4">
+                            <Table>
+                              <TableCaption>Revenue by Category</TableCaption>
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Quarter</TableHead>
+                                  <TableHead>Category</TableHead>
+                                  <TableHead>Revenue</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                <TableRow>
+                                  <TableCell rowSpan={3}>Q1</TableCell>
+                                  <TableCell>Electronics</TableCell>
+                                  <TableCell>$45,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Apparel</TableCell>
+                                  <TableCell>$35,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Home Goods</TableCell>
+                                  <TableCell>$70,000</TableCell>
+                                </TableRow>
+
+                                <TableRow>
+                                  <TableCell rowSpan={3}>Q2</TableCell>
+                                  <TableCell>Electronics</TableCell>
+                                  <TableCell>$52,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Apparel</TableCell>
+                                  <TableCell>$38,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Home Goods</TableCell>
+                                  <TableCell>$75,000</TableCell>
+                                </TableRow>
+
+                                <TableRow>
+                                  <TableCell rowSpan={3}>Q3</TableCell>
+                                  <TableCell>Electronics</TableCell>
+                                  <TableCell>$58,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Apparel</TableCell>
+                                  <TableCell>$42,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Home Goods</TableCell>
+                                  <TableCell>$80,000</TableCell>
+                                </TableRow>
+
+                                <TableRow>
+                                  <TableCell rowSpan={3}>Q4</TableCell>
+                                  <TableCell>Electronics</TableCell>
+                                  <TableCell>$62,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Apparel</TableCell>
+                                  <TableCell>$48,000</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Home Goods</TableCell>
+                                  <TableCell>$85,000</TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
                           </div>
-                        </div>
-                        <Card className="col-span-full">
-                          <CardHeader>
-                            <CardTitle>Key Performance Indicators</CardTitle>
-                          </CardHeader>
-                          <CardContent className="grid grid-cols-2 gap-4">
-                            <Card className="p-4">
-                              <h4 className="mb-2 text-sm font-medium text-muted-foreground">
-                                Total Revenue (Q4)
-                              </h4>
-                              <div className="text-2xl font-bold">
-                                $
-                                {(data.values[data.values.length - 1]! / 1000).toFixed(0)}
-                                k
-                              </div>
-                              <div className="text-sm text-green-600">
-                                ↑
-                                {' '}
-                                {rawData[rawData.length - 1]!.growth}
-                                {' '}
-                                growth
-                              </div>
-                            </Card>
-                            <Card className="p-4">
-                              <h4 className="mb-2 text-sm font-medium text-muted-foreground">
-                                Best Performing Category
-                              </h4>
-                              <div className="text-2xl font-bold">Home Goods</div>
-                              <div className="text-sm text-muted-foreground">
-                                $
-                                {(data.datasets?.[2]?.values?.[3] ? data.datasets?.[2]?.values?.[3] : 0 / 1000)?.toFixed(0)}
-                                k in Q4
-                              </div>
-                            </Card>
-                            <Card className="p-4">
-                              <h4 className="mb-2 text-sm font-medium text-muted-foreground">
-                                Highest Growth
-                              </h4>
-                              <div className="text-2xl font-bold">Apparel</div>
-                              <div className="text-sm text-green-600">↑ 37% YoY</div>
-                            </Card>
-                          </CardContent>
                         </Card>
                       </TabsContent>
-                      <TabsContent value="data" className="h-[calc(100%-60px)]">
-                        data
-                      </TabsContent>
                     </Tabs>
+                    <Card className="col-span-full mt-4">
+                      <CardContent>
+                        <Table>
+                          <TableCaption>Key Performance Indicators</TableCaption>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead className="w-1/2">Metric</TableHead>
+                              <TableHead>Value</TableHead>
+                              <TableHead>Change</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {[
+                              { metric: 'Total Revenue (Q4)', value: '$195k', change: '18% Growth' },
+                              { metric: 'Best Performing Category', value: 'Home Goods', change: '$85k in Q4' },
+                              { metric: 'Highest Growth', value: 'Apparel', change: '37% YoY' },
+                            ].map(metric => (
+                              <TableRow key={metric.metric}>
+                                <TableCell className="font-medium">{metric.metric}</TableCell>
+                                <TableCell>{metric.value}</TableCell>
+                                <TableCell>{metric.change}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </CardContent>
+                    </Card>
                   </Card>
                 </div>
               </div>

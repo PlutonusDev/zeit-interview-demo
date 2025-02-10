@@ -31,6 +31,7 @@ export default function Dashboard() {
   const [prompt, setPrompt] = useState('');
   const [selectedWorkspace, setSelectedWorkspace] = useState('1');
   const [_tab, setTab] = useState('chart');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   /* const _data = {
     type: 'bar',
@@ -116,11 +117,15 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-dvh">
-      <Sidebar workspaces={workspaces} selectedWorkspace={selectedWorkspace} onWorkspaceSelect={handleWorkspaceSelect} />
-      <div className="flex w-full flex-col">
-        <div className="h-4 w-full bg-zinc-100" />
+      <Sidebar workspaces={workspaces} selectedWorkspace={selectedWorkspace} onWorkspaceSelect={handleWorkspaceSelect} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <div className={`flex w-full flex-col overflow-hidden transition-all duration-700 ${sidebarOpen ? 'ml-[280px]' : 'ml-0'}`}>
+        <div className="h-36 w-full bg-zinc-100 xl:h-4">
+          <div className="flex h-full items-center justify-center xl:hidden">
+            <p className="text-lg font-bold">BI Suite Demo</p>
+          </div>
+        </div>
         <div className="flex w-full grow flex-col overflow-hidden">
-          <div className="flex justify-center border-b p-4 shadow">
+          <div className="hidden justify-center border-b p-4 shadow xl:flex">
             <Card className="flex w-full max-w-4xl items-center space-x-2 self-center bg-white p-2">
               <TooltipProvider delayDuration={0}>
                 <Tooltip>
@@ -169,8 +174,8 @@ export default function Dashboard() {
               <FaChevronRight />
               <span>Monthly Revenue Analysis</span>
             </div>
-            <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-              <div className="mt-2 h-full overflow-hidden rounded bg-zinc-100 pb-4">
+            <div className="flex flex-col gap-4 xl:flex-row">
+              <div className="mt-2 size-full overflow-hidden rounded bg-zinc-100 pb-4 xl:w-1/2">
                 <div className="h-1 w-full bg-blue-300" />
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4 px-4 py-2">
@@ -456,7 +461,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="mt-2 h-full overflow-hidden rounded bg-zinc-100 pb-4">
+              <div className="mt-2 size-full overflow-hidden rounded bg-zinc-100 pb-4 xl:w-1/2">
                 <div className="h-1 w-full bg-blue-300" />
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4 px-4 py-2">
@@ -520,9 +525,52 @@ export default function Dashboard() {
               Use the input bar at the top to create some.
             </p> */}
           </ScrollArea>
+          <div className="flex justify-center border-t p-4 shadow xl:hidden">
+            <Card className="flex w-full max-w-4xl items-center space-x-2 self-center bg-white p-2">
+              <TooltipProvider delayDuration={0}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Input value={prompt} onChange={e => setPrompt(e.target.value)} placeholder="Gain insights on your data..." className="w-full pr-10" />
+                  </TooltipTrigger>
+                  <TooltipContent side="top" align="start" className="border border-zinc-200 bg-zinc-100 text-brand-bg shadow">
+                    <div className="p-2">
+                      <p className="mb-2 flex items-center space-x-2 font-semibold">
+                        <IoSparkles />
+                        <span>Suggestions</span>
+                      </p>
+                      <ul className="space-y-1">
+                        <li key="1">
+                          <button type="button" onClick={() => setPrompt('Show me sales trends for the last quarter')} className="cursor-pointer rounded p-1 px-2 text-sm hover:bg-zinc-200">
+                            Show me sales trends for the last quarter
+                          </button>
+                        </li>
+                        <li key="2">
+                          <button type="button" onClick={() => setPrompt('Compare revenue across regions')} className="cursor-pointer rounded p-1 px-2 text-sm hover:bg-zinc-200">
+                            Compare revenue across regions
+                          </button>
+                        </li>
+                        <li key="3">
+                          <button type="button" onClick={() => setPrompt('Analyze our customer demographics')} className="cursor-pointer rounded p-1 px-2 text-sm hover:bg-zinc-200">
+                            Analyze our customer demographics
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <button type="button" className="flex size-8 shrink-0 items-center justify-center rounded bg-zinc-100 shadow hover:bg-white">
+                <FaHistory />
+              </button>
+              <button type="button" className="flex h-8 shrink-0 items-center justify-center space-x-2 rounded bg-zinc-100 px-3 font-semibold shadow hover:bg-white">
+                <span className="text-sm">Submit</span>
+                <BiSolidSend />
+              </button>
+            </Card>
+          </div>
         </div>
         <div className="flex h-8 w-full items-center justify-end bg-zinc-100 px-4 shadow-[rgba(0,0,0,0.2)_0px_-2px_6px_1px]">
-          <p className="text-sm text-zinc-400">Copyright &copy; Joshua Hughes</p>
+          <p className="text-xs text-zinc-300">Copyright &copy; Joshua Hughes</p>
         </div>
       </div>
     </div>

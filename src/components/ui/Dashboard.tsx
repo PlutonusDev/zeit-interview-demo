@@ -1,5 +1,7 @@
 'use client';
 
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from '@radix-ui/react-toast';
 import { useState } from 'react';
 import { BiBarChart, BiLineChart, BiSolidSend } from 'react-icons/bi';
 import { FaChevronRight, FaHistory } from 'react-icons/fa';
@@ -28,8 +30,11 @@ export default function Dashboard() {
     { id: '3', name: 'Customer Insights' },
   ];
 
+  const { toast } = useToast();
+
   const [prompt, setPrompt] = useState('');
   const [selectedWorkspace, setSelectedWorkspace] = useState('1');
+  const [selectedAnalysis, setSelectedAnalysis] = useState('1');
   const [_tab, setTab] = useState('chart');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -112,12 +117,44 @@ export default function Dashboard() {
   };
 
   const handleWorkspaceSelect = (workspaceId: string) => {
+    toast({
+      duration: 3000,
+      variant: 'destructive',
+      title: 'Uh oh! Something went wrong.',
+      description: 'Workspace selection is disabled.',
+      action: <ToastAction onClick={() => handleWorkspaceSelect('')} altText="Try again">Try again</ToastAction>,
+    });
+    return;
+
     setSelectedWorkspace(workspaceId);
+  };
+
+  const handleAnalysisSelect = (analysisId: string) => {
+    toast({
+      duration: 3000,
+      variant: 'destructive',
+      title: 'Uh oh! Something went wrong.',
+      description: 'Analysis selection is disabled.',
+      action: <ToastAction onClick={() => handleAnalysisSelect('')} altText="Try again">Try again</ToastAction>,
+    });
+    return;
+
+    setSelectedAnalysis(analysisId);
+  };
+
+  const handleAISubmit = () => {
+    toast({
+      duration: 3000,
+      variant: 'destructive',
+      title: 'Uh oh! Something went wrong.',
+      description: 'AI-Enhanced features are disabled.',
+      action: <ToastAction onClick={() => handleAISubmit()} altText="Try again">Try again</ToastAction>,
+    });
   };
 
   return (
     <div className="flex h-dvh">
-      <Sidebar workspaces={workspaces} selectedWorkspace={selectedWorkspace} onWorkspaceSelect={handleWorkspaceSelect} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar workspaces={workspaces} selectedWorkspace={selectedWorkspace} onWorkspaceSelect={handleWorkspaceSelect} selectedAnalysis={selectedAnalysis} onAnalysisSelect={handleAnalysisSelect} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className={`flex w-full flex-col overflow-hidden transition-all duration-700 ${sidebarOpen ? 'ml-[280px]' : 'ml-0'}`}>
         <div className="h-36 w-full bg-zinc-100 xl:h-4">
           <div className="flex h-full items-center justify-center xl:hidden">
@@ -162,7 +199,7 @@ export default function Dashboard() {
               <button type="button" className="flex size-8 shrink-0 items-center justify-center rounded bg-zinc-100 shadow hover:bg-white">
                 <FaHistory />
               </button>
-              <button type="button" className="flex h-8 shrink-0 items-center justify-center space-x-2 rounded bg-zinc-100 px-3 font-semibold shadow hover:bg-white">
+              <button type="button" onClick={() => handleAISubmit()} className="flex h-8 shrink-0 items-center justify-center space-x-2 rounded bg-zinc-100 px-3 font-semibold shadow hover:bg-white">
                 <span className="text-sm">Submit</span>
                 <BiSolidSend />
               </button>
@@ -562,7 +599,7 @@ export default function Dashboard() {
               <button type="button" className="flex size-8 shrink-0 items-center justify-center rounded bg-zinc-100 shadow hover:bg-white">
                 <FaHistory />
               </button>
-              <button type="button" className="flex h-8 shrink-0 items-center justify-center space-x-2 rounded bg-zinc-100 px-3 font-semibold shadow hover:bg-white">
+              <button type="button" onClick={() => handleAISubmit()} className="flex h-8 shrink-0 items-center justify-center space-x-2 rounded bg-zinc-100 px-3 font-semibold shadow hover:bg-white">
                 <span className="text-sm">Submit</span>
                 <BiSolidSend />
               </button>

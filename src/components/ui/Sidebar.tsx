@@ -13,9 +13,10 @@ import WorkspaceSelector from './WorkspaceSelector';
 type ISidebarProps = {
   workspaces: Workspace[];
   selectedWorkspace: string;
+  selecetdAnalysis: string;
   onWorkspaceSelect: (workspaceId: string) => void;
   onWorkspaceCreate?: (workspaceId: string) => void;
-  onAnalysisSelect?: (analysisId: string) => void;
+  onAnalysisSelect: (analysisId: string) => void;
   onDataSourceCreate?: (sourceId: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: any;
@@ -24,7 +25,9 @@ type ISidebarProps = {
 export default function Sidebar({
   workspaces,
   selectedWorkspace,
+  selecetdAnalysis,
   onWorkspaceSelect,
+  onAnalysisSelect,
   sidebarOpen,
   setSidebarOpen,
 }: ISidebarProps): any {
@@ -49,18 +52,18 @@ export default function Sidebar({
                   <FaPlus className="cursor-pointer text-sm hover:text-zinc-700" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex cursor-pointer items-center space-x-2 rounded bg-zinc-200 px-2 py-1 text-sm">
+                  <button type="button" onClick={() => onAnalysisSelect('1')} className="flex w-full cursor-pointer items-center space-x-2 rounded bg-zinc-200 px-2 py-1 text-sm">
                     <FaBrain />
                     <span>Monthly Revenue Analysis</span>
-                  </div>
-                  <div className="flex cursor-pointer items-center space-x-2 rounded px-2 py-1 text-sm transition-colors hover:bg-zinc-200">
+                  </button>
+                  <button type="button" onClick={() => onAnalysisSelect('2')} className="flex w-full cursor-pointer items-center space-x-2 rounded px-2 py-1 text-sm transition-colors hover:bg-zinc-200">
                     <FaBrain />
                     <span>Customer Segmentation</span>
-                  </div>
-                  <div className="flex cursor-pointer items-center space-x-2 rounded px-2 py-1 text-sm transition-colors hover:bg-zinc-200">
+                  </button>
+                  <button type="button" onClick={() => onAnalysisSelect('3')} className="flex w-full cursor-pointer items-center space-x-2 rounded px-2 py-1 text-sm transition-colors hover:bg-zinc-200">
                     <FaBrain />
                     <span>Sales Performance Summary</span>
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-8 px-4">

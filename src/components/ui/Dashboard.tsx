@@ -124,9 +124,10 @@ export default function Dashboard() {
       description: 'Workspace selection is disabled.',
       action: <ToastAction onClick={() => handleWorkspaceSelect('')} altText="Try again">Try again</ToastAction>,
     });
-    return;
 
-    setSelectedWorkspace(workspaceId);
+    // eslint-disable-next-line no-console
+    console.log(workspaceId);
+    setSelectedWorkspace('1'/* workspaceId */);
   };
 
   const handleAnalysisSelect = (analysisId: string) => {
@@ -137,9 +138,10 @@ export default function Dashboard() {
       description: 'Analysis selection is disabled.',
       action: <ToastAction onClick={() => handleAnalysisSelect('')} altText="Try again">Try again</ToastAction>,
     });
-    return;
 
-    setSelectedAnalysis(analysisId);
+    // eslint-disable-next-line no-console
+    console.log(analysisId);
+    setSelectedAnalysis('1'/* analysisId */);
   };
 
   const handleAISubmit = () => {

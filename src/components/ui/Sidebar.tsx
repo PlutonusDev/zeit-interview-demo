@@ -13,7 +13,7 @@ import WorkspaceSelector from './WorkspaceSelector';
 type ISidebarProps = {
   workspaces: Workspace[];
   selectedWorkspace: string;
-  selecetdAnalysis: string;
+  selectedAnalysis?: string;
   onWorkspaceSelect: (workspaceId: string) => void;
   onWorkspaceCreate?: (workspaceId: string) => void;
   onAnalysisSelect: (analysisId: string) => void;
@@ -25,7 +25,6 @@ type ISidebarProps = {
 export default function Sidebar({
   workspaces,
   selectedWorkspace,
-  selecetdAnalysis,
   onWorkspaceSelect,
   onAnalysisSelect,
   sidebarOpen,

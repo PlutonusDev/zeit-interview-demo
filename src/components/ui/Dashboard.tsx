@@ -32,7 +32,7 @@ export default function Dashboard() {
   const [selectedWorkspace, setSelectedWorkspace] = useState('1');
   const [_tab, setTab] = useState('chart');
 
-  const _data = {
+  /* const _data = {
     type: 'bar',
     labels: ['Q1', 'Q2', 'Q3', 'Q4'],
     values: [150000, 165000, 180000, 195000],
@@ -54,7 +54,7 @@ export default function Dashboard() {
         color: 'bg-purple-500',
       },
     ],
-  };
+  }; */
 
   const rawData = [
     {
